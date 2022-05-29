@@ -92,7 +92,7 @@ class Test(QWidget):
     def __init__(self):
         super(Test, self).__init__()
 
-        uic.loadUi('ui_files/demo2.ui', self)
+        uic.loadUi('ui_files/demo.ui', self)
         
         # 定时器
         self.timer = QTimer()
