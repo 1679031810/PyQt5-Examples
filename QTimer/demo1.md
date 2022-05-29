@@ -76,3 +76,55 @@ if __name__ == '__main__':
     sys.exit(app.exec_())
 
 ```
+
+> 下面这个例子，显示的当前时间，包括工作日
+> ui文件为demo.ui
+```python
+
+import sys
+
+from PyQt5.QtWidgets import QWidget, QLabel, QApplication, QPushButton
+from PyQt5 import uic
+from PyQt5.QtCore import QTimer, QDateTime
+
+
+class Test(QWidget):
+    def __init__(self):
+        super(Test, self).__init__()
+
+        uic.loadUi('ui_files/demo2.ui', self)
+        
+        # 定时器
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.show_time)
+    
+    def show_time(self):
+        # 获取系统现在的时间
+        time = QDateTime.currentDateTime()
+        # 设置系统时间显示格式
+        time_dis = time.toString('yyyy-MM-dd hh:mm:ss dddd')
+        # 在标签上显示时间
+        self.lb_time.setText(time_dis)
+    
+    def on_btn_start_clicked(self):
+        self.timer.start(1000)
+        self.btn_start.setEnabled(False)
+        self.btn_stop.setEnabled(True)
+    
+    def on_btn_stop_clicked(self):
+        self.timer.stop()
+        self.btn_start.setEnabled(True)
+        self.btn_stop.setEnabled(False)
+        self.lb_time.clear()
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+
+    window = Test()
+    window.show()
+
+    sys.exit(app.exec_())
+
+
+```
